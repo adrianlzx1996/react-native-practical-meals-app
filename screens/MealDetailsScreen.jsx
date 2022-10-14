@@ -1,9 +1,10 @@
-import { Button, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
 import { useLayoutEffect } from "react";
+import IconButton from "../components/IconButton";
 
 function MealDetailsScreen({ route, navigation }) {
 	const mealId = route.params.mealId;
@@ -18,30 +19,30 @@ function MealDetailsScreen({ route, navigation }) {
 		navigation.setOptions({
 			headerRight: () => {
 				return (
-					<Button title={"Tap Me"} onPress={headerButtonPressHandler} />
+					<IconButton onPress={headerButtonPressHandler} icon={"star"} color={"white"} />
 				)
 			},
 		})
 	}, [ navigation, headerButtonPressHandler ]);
 
 	return (
-		<ScrollView style={styles.rootContainer} >
+		<ScrollView style={styles.rootContainer}>
 			<Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
-			<Text style={styles.title} >{selectedMeal.title}</Text >
+			<Text style={styles.title}>{selectedMeal.title}</Text>
 
 			<MealDetails duration={selectedMeal.duration} complexity={selectedMeal.complexity}
 						 affordability={selectedMeal.affordability} textStyle={styles.detailText} />
 
-			<View style={styles.listOuterContainer} >
-				<View style={styles.listContainer} >
-					<Subtitle >Ingredients</Subtitle >
+			<View style={styles.listOuterContainer}>
+				<View style={styles.listContainer}>
+					<Subtitle>Ingredients</Subtitle>
 					<List data={selectedMeal.ingredients} />
 
-					<Subtitle >Steps</Subtitle >
+					<Subtitle>Steps</Subtitle>
 					<List data={selectedMeal.steps} />
-				</View >
-			</View >
-		</ScrollView >
+				</View>
+			</View>
+		</ScrollView>
 	)
 }
 
