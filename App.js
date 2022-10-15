@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons"
 
 import CategoriesScreen from "./screens/CategoriesScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
+import FavoritesContextProvider from "./store/context/favorites-context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -46,38 +47,40 @@ export default function App() {
 	return (
 		<>
 			<StatusBar style="light" />
-			<NavigationContainer>
-				<Stack.Navigator screenOptions={{
-					headerStyle: {
-						backgroundColor: "#351401",
-					},
-					headerTintColor: "white",
-					contentStyle: {
-						backgroundColor: "#3f2f25",
-					},
-				}}>
-					<Stack.Screen name={"Drawer"} component={DrawerNavigator} options={{
-						headerShown: false,
-					}} />
-					<Stack.Screen name={"MealsOverview"} component={MealsOverviewScreen}
-						// options={({ route, navigation }) => {
-						//   const catId = route.params.categoryId;
-						//   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
-						//   return {
-						// 	  title: selectedCategory.title,
-						//   }
-						// }}
-					/>
-					<Stack.Screen name={"MealDetail"} component={MealDetailsScreen} options={{
-						title: "About the Meal",
-						headerRight: () => {
-							return (
-								<Button title={"Tap Me!"} />
-							)
+			<FavoritesContextProvider>
+				<NavigationContainer>
+					<Stack.Navigator screenOptions={{
+						headerStyle: {
+							backgroundColor: "#351401",
 						},
-					}} />
-				</Stack.Navigator>
-			</NavigationContainer>
+						headerTintColor: "white",
+						contentStyle: {
+							backgroundColor: "#3f2f25",
+						},
+					}}>
+						<Stack.Screen name={"Drawer"} component={DrawerNavigator} options={{
+							headerShown: false,
+						}} />
+						<Stack.Screen name={"MealsOverview"} component={MealsOverviewScreen}
+							// options={({ route, navigation }) => {
+							//   const catId = route.params.categoryId;
+							//   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+							//   return {
+							// 	  title: selectedCategory.title,
+							//   }
+							// }}
+						/>
+						<Stack.Screen name={"MealDetail"} component={MealDetailsScreen} options={{
+							title: "About the Meal",
+							headerRight: () => {
+								return (
+									<Button title={"Tap Me!"} />
+								)
+							},
+						}} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			</FavoritesContextProvider>
 		</>
 	);
 }
